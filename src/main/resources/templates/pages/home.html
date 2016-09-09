@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/blog.css}">
+    <script type="text/javascript" th:src="@{/js/jquery-3.1.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body class="container">
+<div class="container-fluid">
+
+    <div class="row" align="right">
+        <iframe width="420" scrolling="no" height="60" frameborder="0" allowtransparency="true"
+                src="http://i.tianqi.com/index.php?c=code&id=12&icon=4&num=4"></iframe>
+    </div>
+    <div class="row" id="navbar">
+        <nav class="navbar navbar-default " role="navigation">
+            <div class="container-fluid ">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header ">
+                    <a class="navbar-brand" href="#"><img
+                            th:src="@{/image/11.jpg}" width="20" height="20"/></a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse"
+                     id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown" th:each="navMenu : ${session.navMenuItem}"><a
+                                href="#" class="dropdown-toggle" data-toggle="dropdown"><span
+                                th:text="${navMenu.name}"></span><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="dropdown" th:each="navItem : ${navMenu.children}"><a
+                                        th:href="'?cat='+${navItem.termId}"
+                                        th:text="${navItem.name}+' ('+${navItem.count}+') '"></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form> -->
+
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </div>
+    <div class="row" id="post">
+        <div class="col-xs-9 col-md-9" id="postList"  th:if="${#lists.isEmpty(postDetial)}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">文章列表</h3>
+                </div>
+                <div class="panel-body">
+                    <h3 class="panel-title" th:if="${#lists.isEmpty(postList)}" th:text="该分类文章为空"></h3>
+                    <ul class="list-group">
+                        <li class="list-group-item" th:each="post : ${postList}">
+                            <div class="list-group">
+                                <a th:href="'/?postId='+${post.id}" class="list-group-item active" th:text="${post.postTitle}">
+                                </a>
+                                <p class="list-group-item-text" th:text="${post.postContent}"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-9 col-md-9" id="postDetial"  th:if="not ${#lists.isEmpty(postDetial)}">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">文章详情</h3>
+                </div>
+                <div class="panel-body" id="postDetial">
+                    <h3 class="panel-title" th:text="${postDetial.postTitle}"></h3>
+                    <p th:utext="${postDetial.postContent}"></p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-xs-3 col-md-3" id="lastPost">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">最新文章</h3>
+                </div>
+                <div class="panel-body">
+
+                    <ul class="list-group">
+                        <li class="list-group-item" th:each="post : ${postLast}">
+                            <div class="list-group">
+                                <a th:href="'?postId='+${post.id}" class="list-group-item active">
+                                    <h6 class="list-group-item-heading" th:text="${post.postTitle}"></h6>
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="panel panel-default" id="termList">
+                <div class="panel-heading">
+                    <h3 class="panel-title">分类列表</h3>
+                </div>
+                <div class="panel-body">
+
+                    <ul class="list-group" th:each="term : ${postTerm}">
+                        <h6 class="list-group-item-heading" th:text="${term.name}"></h6>
+                        <li class="list-group-item" th:each="t : ${term.children}">
+                            <span class="badge"><a th:text="${t.count}"/></span>
+                            <a th:href="'?cat='+${t.termId}" th:text="${t.name}">
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
