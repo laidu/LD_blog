@@ -96,15 +96,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                 <!--自动部署静态文件-->
+                <configuration>
+                    <addResources>true</addResources>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>${mybatis-generator.verison}</version>
-                <!--自动部署静态文件-->
-                <configuration>
-                    <addResources>true</addResources>
-                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.springframework</groupId>
