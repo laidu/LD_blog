@@ -100,11 +100,6 @@
                 <configuration>
                     <addResources>true</addResources>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>${mybatis-generator.verison}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.springframework</groupId>
@@ -112,6 +107,11 @@
                         <version>1.2.6.RELEASE</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>${mybatis-generator.verison}</version>
             </plugin>
         </plugins>
     </build>
